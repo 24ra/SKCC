@@ -1,0 +1,26 @@
+# 판다스 라이브러리 불러오기
+import pandas as pd
+
+# CSV 파일 불러오기
+car_sample_data = pd.read_csv("for_gist/car_sample_data.csv", error_bad_lines=False, index_col = False)
+
+# 불러온 CSV 파일 요약해서 보기
+car_sample_data.head()
+
+# 불러온 CSV 파일 중 가능한 변수에 한정하여 히스토그램 작성
+car_sample_data.hist()
+
+#query를 활용하여 2015년 이전 데이터만 불러오기
+car_sample_data_75_up_del = car_sample_data.query('car_model_year < 2015') #TRK의 UNIQ_ID 
+
+#query를 활용하여 2010년 데이터만 불러오기
+car_sample_data_75_up_del = car_sample_data.query('car_model_year < 2015') #TRK의 UNIQ_ID
+
+# 데이터 랜덤 샘플링 5%. 만일 10% 라면 0.05를 0.1로 지정한다
+car_sample_data_random_sampling = car_sample_data.sample(frac=0.05, replace=True)
+
+# 데이터 날짜 범위 설정하기
+# INDEX 지정 후 진행해고 RESET 하면 됨
+car_sample_data = car_sample_data.set_index("date_time")
+car_sample_data = car_sample_data.loc["2018-05-08 00:01:06":"2018-05-08 00:01:12"]
+car_sample_data = car_sample_data.reset_index()
